@@ -20,61 +20,42 @@ function hideLoader() {
     loading.style.display = 'none';
 }
 
-function createCards(
-    releaseDate,
-    genre,
-    platform,
-    thumbnail,
-    title,
-    shortDescription,
-    publisher,
-    developer,
-) {
-    return `<div class="item-block__game-item ">
+function createCard(cards) {
+    cards.forEach((el) => {
+        cardsBlock.insertAdjacentHTML('beforeend', `<div class="item-block__game-item ">
                                 <div class="game-item-item__header">
                                     <div class="header__icon">
-                                        <img src="${thumbnail}" class="header__img" alt="game icon" width="90" height="90">
+                                        <img src="${el.thumbnail}" class="header__img" alt="game icon" width="90" height="90">
                                     </div>
                                     <div class="header__about">
-                                        <h2 class="header__game-name cards-title">${title}</h2>
-                                        <div class="about__p">${shortDescription}</div>
+                                        <h2 class="header__game-name cards-title">${el.title}</h2>
+                                        <div class="about__p">${el.short_description}</div>
                                     </div>
                                 </div>
                                 <div class="game-item__info-list">
                                     <ul class="info-game" data-info="info">
                                         <li>
-                                            <b>Genre:</b>${genre}
+                                            <b>Genre:</b>${el.genre}
                                         </li>
                                         <li>
-                                            <b>Platform:</b>${platform}
+                                            <b>Platform:</b>${el.platform}
                                         </li>
                                         <li>
-                                            <b>Publisher:</b>${publisher}
+                                            <b>Publisher:</b>${el.publisher}
                                         </li>
                                         <li>
-                                            <b>Developer:</b>${developer}
+                                            <b>Developer:</b>${el.developer}
                                         </li>
                                         <li>
-                                            <b>Release_date:</b>${releaseDate}
+                                            <b>Release_date:</b>${el.release_date}
                                         </li>
                                     </ul>
                                 </div>
-                            </div>`;
+                            </div>`)
+    })
 }
 
-function renderCards(cards) {
-    cardsBlock.innerHTML += createCards(
-        cards.release_date,
-        cards.genre,
-        cards.platform,
-        cards.thumbnail,
-        cards.title,
-        cards.short_description,
-        cards.publisher,
-        cards.developer,
-    )}
-
-async function getJSON() {
+async function getGames() {
     try {
         showLoader();
         const response = await fetch('https://mmo-games.p.rapidapi.com/games', {
@@ -85,19 +66,17 @@ async function getJSON() {
                 'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
             },
         });
-
         games = await response.json();
         games = games.slice(0, 50);
-        games.forEach((cards) => {
-            renderCards(cards);
-        });
+        createCard(games);
+
     } catch (error) {
         console.error('Error:', error);
     } finally {
         hideLoader();
     }
 }
-document.addEventListener('DOMContentLoaded', getJSON);
+document.addEventListener('DOMContentLoaded', getGames);
 
 document.querySelector('[data-search]').addEventListener('click', () => {
     showLoader();
@@ -113,9 +92,7 @@ document.querySelector('[data-search]').addEventListener('click', () => {
     cardsBlock.innerText = '';
     setTimeout(() => {
         hideLoader();
-        search.forEach((cards) => {
-            renderCards(cards);
-        });
+        createCard(search);
     }, 500);
 });
 
@@ -127,9 +104,7 @@ searchInput.oninput = function () {
         cardsBlock.innerText = '';
         setTimeout(() => {
             hideLoader();
-            games.forEach((cards) => {
-                renderCards(cards)
-            });
+            createCard(games)
         }, 500);
     }
 };
@@ -144,7 +119,7 @@ function sortCards(element) {
 
     setTimeout(() => {
         sort.forEach((cards) => {
-            renderCards(cards);
+            createCard(cards);
         });
     });
 }
@@ -178,9 +153,7 @@ function checkBoxFilter(element) {
 
     setTimeout(() => {
         hideLoader();
-        filterCards.forEach((cards) => {
-            renderCards(cards)
-        });
+        createCard(filterCards)
     }, 500);
 }
 

@@ -25,6 +25,8 @@
 }
 
 .container__text {
+  text-align: center;
+  line-height: 30px;
   color: #FFF;
   font-size: 22px;
   font-weight: 400;

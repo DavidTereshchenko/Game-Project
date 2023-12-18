@@ -84,7 +84,6 @@ body {
 }
 
 @media (max-width: 1225px) {
-
   [class*="__container"] {
     padding-left: 15px;
     padding-right: 15px;

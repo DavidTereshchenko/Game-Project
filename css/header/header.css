@@ -13,7 +13,7 @@
 .header__container {
   width: 1175px;
   display: grid;
-  grid-template-columns: 3fr 2fr 30px;
+  grid-template-columns: 1fr 2fr 30px;
   justify-content: space-between;
   align-items: center;
   padding: 11px 0;

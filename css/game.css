@@ -16,12 +16,15 @@
 
 .filter__list {
   max-width: 1175px;
-  /*margin: 0 auto;*/
-
   display: grid;
   grid-template-columns: 2fr 1fr;
   justify-content: space-between;
   padding: 12px 0;
+}
+
+.filter__select {
+  display: flex;
+  gap: 20px;
 }
 
 .filter__select select {
@@ -114,9 +117,10 @@
   align-items: center;
 }
 
-.filter-icon {
+.filter-icon-img {
   height: 30px;
   width: 30px;
+  padding: 0 2px;
 }
 
 .search__input {
@@ -141,12 +145,19 @@
   color: #FFF;
 }
 
+.active {
+  display: flex;
+  height: 400px;
+}
+
 /* Game Block */
 
 .game {
   display: flex;
+  bottom: 50%;
+  top: 20%;
   justify-content: center;
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 200px);
 }
 
 .game__contend__container {
@@ -169,6 +180,9 @@
 
 .item-block__game-item {
   display: grid;
+  background-position: center;
+  transition: all 0.5s ease;
+  width: 100%;
   height: fit-content;
   min-height: 297px;
   flex-direction: column;
@@ -177,7 +191,14 @@
   border-radius: 12px;
 }
 
+.item-block__game-item:hover {
+  background-position: 80%;
+  transform: rotate3d(10, 20, 0, 25deg);
+  box-shadow: 0 0 #EF4934, -1em 1em  .5em #EF4934;
+}
+
 .game-item-item__header {
+  /*filter: hue-rotate(120deg);*/
   display: flex;
   flex-direction: row;
   column-gap: 12px;
@@ -191,21 +212,31 @@
 }
 
 .header__icon {
-  height: 90px;
+  max-height: 90px;
+  max-width: 90px;
+
 }
 
 .header__img {
   border-radius: 5px;
+  transition: all 0.5s ease;
 }
 
-.header__game-name h2 {
-  font-size: 18px!important;
-  font-weight: 700!important;
+.header__img:hover {
+  transform: translate(10px, 0%);
+  width: 100px;
+  height: 100px;
 }
 
-.about__p {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.cards-title {
+  font-size: 18px;
+  font-weight: 700;
+  transition: all 0.5s ease;
+}
+
+.cards-title:hover {
+  font-size: 19px;
+  transform: translate(10px, 0%);
 }
 
 .about__p {
@@ -214,10 +245,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-
-.about__p {
+  transition: all 0.5s ease;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -225,14 +253,11 @@
 }
 
 .about__p:hover {
+  transform: translate(10px, 0%);
+  font-size: 15px;
   overflow: inherit;
   height: fit-content;
   -webkit-line-clamp: inherit;
-}
-
-.cards-title {
-  font-size: 18px;
-  font-weight: 700;
 }
 
 .game-item__info-list {
@@ -244,6 +269,12 @@
 .info-game {
   flex-direction: column;
   word-spacing: normal;
+  transition: all 0.5s ease;
+}
+
+.info-game:hover {
+  font-size: 16px;
+  transform: translate(10px, 0%);
 }
 
 .info-game li {
@@ -311,6 +342,10 @@
   .item-block__game-item {
     max-width: 100%;
   }
+
+  .filter__icon label {
+    display: none;
+  }
 }
 /* Adaptation Filter */
 
@@ -321,7 +356,7 @@
   display: none;
   justify-content: center;
   align-items: center;
-  max-width: 114px;
+  max-width: 100%;
   height: 35px;
   margin-left: 0;
   color: #221F1F;
@@ -332,36 +367,41 @@
   cursor: pointer;
 }
 
-.filter__icon label {
-  cursor: pointer;
-  padding-right: 10px;
-}
 
-@media (max-width: 1050px) {
+
+@media (max-width: 1140px) {
 
   .filter__icon {
     display: flex;
     position: relative;
+    max-width: 70%;
+  }
+
+  .open {
+    height: 270px;
+  }
+
+  .list {
+    display: flex!important;
   }
 
   .filter__checkbox {
     display: none;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center!important;
+    align-items: center;
     flex-wrap: wrap;
-    /*align-items: center;*/
-
-    position: fixed;
-    /*height: %;*/
-
-    gap: 20px;
+    position: absolute;
+    gap: 40px;
     width: 100%;
+    margin-top: 25px;
+    /*height: calc(100vh - 160px);*/
     z-index: 50;
     overflow-y: auto;
     padding: 20px;
-    background-color: #221F1F;
-    border-radius: 6px;
-    border: 1px solid #FFF;
+    /*background-color: #221F1F;*/
+    /*border-radius: 6px;*/
+    /*border: 1px solid #FFF;*/
     top: 15.5%;
     left: 0;
   }
@@ -372,16 +412,19 @@
     justify-content: space-between;
     gap: 20px;
     margin: 0;
+    width: 100%;
   }
 
   .filter__list {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: flex-start;
   }
 
   .filter__search {
-    max-width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
   }
 
   .search__input {
@@ -397,11 +440,17 @@
 @media (max-width: 550px) {
 
   .filter__icon label {
-    display: none;
+    cursor: pointer;
+    padding-right: 10px;
   }
 
   .filter__search {
-    max-width: 360px;
+    width: 200px;
+  }
+
+  .filter__icon {
+    padding: 0;
+    max-width: 70%;
   }
 }
 
