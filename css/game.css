@@ -372,7 +372,7 @@
   .filter__icon {
     display: flex;
     position: relative;
-    max-width: 70%;
+    max-width: 85%;
   }
 
   .open {
@@ -445,7 +445,7 @@
 
   .filter__icon {
     padding: 0;
-    max-width: 70%;
+    max-width: 85px;
   }
 }
 

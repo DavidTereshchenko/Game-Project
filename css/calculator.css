@@ -3,11 +3,7 @@
 @import "Footer/footer.css";
 
 .page {
-  min-height: 75%;
-}
-
-.wrapper {
-  height: 100%;
+  min-height: calc(100vh - 200px);
 }
 
 .title__calculator {
@@ -129,3 +125,24 @@
   line-height: 30px;
   margin-top: 30px;
 }
+
+/* Adaptation */
+
+@media screen and (max-width: 700px) {
+  .title__calculator {
+    font-size: 38px;
+  }
+
+  .number__container {
+    justify-content: space-between;
+  }
+
+  .visual-counting span {
+    font-size: 38px;
+  }
+
+  .result__block {
+    display: none;
+  }
+}
+
