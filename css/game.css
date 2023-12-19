@@ -5,6 +5,7 @@
 @import "Footer/footer.css";
 
 /* Loading...*/
+
 @import "loading/loading.css";
 
 /* Filter */
@@ -198,7 +199,6 @@
 }
 
 .game-item-item__header {
-  /*filter: hue-rotate(120deg);*/
   display: flex;
   flex-direction: row;
   column-gap: 12px;
@@ -367,8 +367,6 @@
   cursor: pointer;
 }
 
-
-
 @media (max-width: 1140px) {
 
   .filter__icon {
@@ -394,14 +392,9 @@
     position: absolute;
     gap: 40px;
     width: 100%;
-    margin-top: 25px;
-    /*height: calc(100vh - 160px);*/
     z-index: 50;
     overflow-y: auto;
     padding: 20px;
-    /*background-color: #221F1F;*/
-    /*border-radius: 6px;*/
-    /*border: 1px solid #FFF;*/
     top: 15.5%;
     left: 0;
   }
@@ -436,12 +429,14 @@
   }
 }
 
-
 @media (max-width: 550px) {
 
   .filter__icon label {
     cursor: pointer;
-    padding-right: 10px;
+  }
+
+  .active {
+    min-width: 85px;
   }
 
   .filter__search {

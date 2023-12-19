@@ -1,5 +1,3 @@
-// const c = console.log; // for short use console.log
-
 let games = [];
 const cardsBlock = document.querySelector('.game__item-blocks');
 const searchInput = document.querySelector('.search__input');
