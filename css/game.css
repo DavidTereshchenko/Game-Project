@@ -236,11 +236,6 @@
 }
 
 .about__p {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
   transition: all 0.5s ease;
   font-size: 14px;
   font-weight: 400;

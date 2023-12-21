@@ -20,6 +20,12 @@ function hideLoader() {
 
 function createCard(cards) {
     cards.forEach((el) => {
+        const maxDescription = 48;
+        const world = el.short_description.split('');
+        el.short_description = world.length > maxDescription
+            ? `${world.slice(0, maxDescription).join('')}...`
+            : el.short_description;
+
         cardsBlock.insertAdjacentHTML('beforeend', `<div class="item-block__game-item ">
                                 <div class="game-item-item__header">
                                     <div class="header__icon">
@@ -53,28 +59,35 @@ function createCard(cards) {
     })
 }
 
-async function getGames() {
+const apiURL = 'https://mmo-games.p.rapidapi.com/games'
+
+async function getGames(platform) {
+    let query = '';
+    if (platform) {
+        query = `?platform=${platform}`;
+    }
+    const url = `${apiURL}${query}`;
+    const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'X-RapidAPI-Key': '1c3169c707mshb51bff34cbc9ff6p1749b9jsn648a19134256',
+            'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+        },
+    });
     try {
         showLoader();
-        const response = await fetch('https://mmo-games.p.rapidapi.com/games', {
-            method: 'GET',
-            cache: 'no-cache',
-            headers: {
-                'X-RapidAPI-Key': '1c3169c707mshb51bff34cbc9ff6p1749b9jsn648a19134256',
-                'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
-            },
-        });
-        games = await response.json();
+        games =  await response.json();
         games = games.slice(0, 50);
         createCard(games);
-
     } catch (error) {
         console.error('Error:', error);
     } finally {
         hideLoader();
     }
 }
-document.addEventListener('DOMContentLoaded', getGames);
+document.addEventListener('DOMContentLoaded', getGames('all'));
 
 document.querySelector('[data-search]').addEventListener('click', () => {
     showLoader();
@@ -106,21 +119,6 @@ searchInput.oninput = function () {
         }, 500);
     }
 };
-
-function sortCards(element) {
-    showLoader()
-    const sort = games.sort((el) => {
-        if (element.dataset.check === 'Old First') {
-            el.release_date;
-        }
-    })
-
-    setTimeout(() => {
-        sort.forEach((cards) => {
-            createCard(cards);
-        });
-    });
-}
 
 function checkBoxFilter(element) {
     showLoader();
