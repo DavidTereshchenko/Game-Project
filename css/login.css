@@ -87,7 +87,7 @@
 }
 
 .checkbox:checked {
-  background: url("../../GameProject/img/icons/_Radio/check1.png") no-repeat center #FFF;
+  background: url("../img/icons/check1.png") no-repeat center #FFF;
 }
 
 /* Style fot button */
