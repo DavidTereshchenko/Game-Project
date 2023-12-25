@@ -47,32 +47,29 @@
                         <div class="filter__checkbox">
                             <div class="filter__select">
                                 <label>
-                                    <select class="select__genre" name="user_profile_color_1" data-select="genre">
-                                        <option value="Genre">Genre</option>
-                                        <option value="ARPG">ARPG</option>
-                                        <option value="Shooter">Shooter</option>
-                                        <option value="Battle Royale">Battle Royale</option>
-                                        <option value="MMORPG">MMORPG</option>
-                                        <option value="Fighting">Fighting</option>
-                                        <option value="Strategy">Strategy</option>
-                                        <option value="Action RPG">Action RPG</option>
+                                    <select class="select__genre" name="user_profile_color_1" data-select="genre" onchange="categoryFilter(this)">
+                                        <option value="genre">Genre</option>
+                                        <option value="shooter">Shooter</option>
+                                        <option value="pvp">PvP</option>
+                                        <option value="mmorpg">MMORPG</option>
+                                        <option value="pve">PvE</option>
                                     </select>
                                 </label>
                                 <label>
-                                    <select class="select__platform" name="user_profile_color_1" data-select="platform">
-                                        <option value="Platform">Platform</option>
-                                        <option value="pc">PC (Windows)</option>
-                                        <option value="browser">Web Browser</option>
+                                    <select class="select__platform" name="user_profile_color_1" data-select="platform" onchange="platformFilter(this)">
+                                        <option value="platform">Platform</option>
+                                        <option value="pc">PC</option>
+                                        <option value="browser">Web</option>
                                     </select>
                                 </label>
                             </div>
                             <div class="checkbox__radio">
                                 <label>
-                                    <input type="radio" name="name1" class="radioButton" value="" data-radio="old">
+                                    <input type="radio" name="name1" class="radioButton" value="desc" data-radio="old" onclick="sortFilter(this)">
                                     Old First
                                 </label>
                                 <label>
-                                    <input type="radio" name="name1" class="radioButton" value="" data-radio="new">
+                                    <input type="radio" name="name1" class="radioButton" value="asc" data-radio="new" checked>
                                     New First
                                 </label>
                             </div>

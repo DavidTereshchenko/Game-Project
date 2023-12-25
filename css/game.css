@@ -77,7 +77,7 @@
 }
 
 .radioButton:checked, .radioButton:active {
-  background: url("../../GameProject/img/icons/Radio/_Radio/checkbox core.svg") no-repeat center #FFF;
+  background: url("../img/icons/Radio/_Radio/checkbox core.svg") no-repeat center #FFF;
 }
 
 .checkbox__checkbox {
@@ -107,7 +107,7 @@
 }
 
 .regular-checkbox:checked {
-  background: url("../../GameProject/img/icons/_Radio/check.svg") no-repeat center #221F1F;
+  background: url("../img/icons/_Radio/check.svg") no-repeat center #221F1F;
   border: 1px solid #FFF;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .search__input {
-  background: url("../../GameProject/img/icons/Search.svg") no-repeat left #FFF;
+  background: url("../img/icons/Search.svg") no-repeat left #FFF;
   background-size: 21px 21px;
   background-position-x: calc(5% - 0px);
   flex: auto;

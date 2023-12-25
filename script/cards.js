@@ -3,12 +3,11 @@ const cardsBlock = document.querySelector('.game__item-blocks');
 const searchInput = document.querySelector('.search__input');
 const newCheck = document.querySelector('#newGames');
 const oldCheck = document.querySelector('#oldGames');
-const oldSort = document.querySelector('[data-radio="old"]');
-const newSort = document.querySelector('[data-radio="new"]');
+const newSort = document.querySelector('[data-radio="new"]').value;
 const dateYear = '2020-01-01';
 const loading = document.querySelector('[data-type="loading"]');
-const genreSelect = document.querySelector('[data-select="genre"]').value;
-const platformSelect = document.querySelector('[data-select="platform"]').value;
+const genreSelect = document.querySelector('[data-select="genre"]');
+const platformSelect = document.querySelector('[data-select="platform"]');
 
 function showLoader() {
     loading.style.display = 'flex';
@@ -19,7 +18,8 @@ function hideLoader() {
 }
 
 function createCard(cards) {
-    cards.forEach((el) => {
+    const cardsLimit = cards.filter((el) => el.id <= 50)
+    cardsLimit.forEach((el) => {
         const maxDescription = 48;
         const world = el.short_description.split('');
         el.short_description = world.length > maxDescription
@@ -79,7 +79,6 @@ async function getGames(platform) {
     try {
         showLoader();
         games =  await response.json();
-        games = games.slice(0, 50);
         createCard(games);
     } catch (error) {
         console.error('Error:', error);
@@ -87,7 +86,99 @@ async function getGames(platform) {
         hideLoader();
     }
 }
-document.addEventListener('DOMContentLoaded', getGames('all'));
+document.addEventListener('DOMContentLoaded', getGames(''));
+
+function platformFilter() {
+    cardsBlock.innerText = '';
+    switch (platformSelect.value) {
+        case 'platform':
+            getGames('all')
+            break;
+
+        case 'pc':
+            getGames('pc');
+            break;
+
+        case 'browser':
+            getGames('browser');
+            break;
+
+        default:
+            getGames('all')
+    }
+}
+async function getCategory(genre) {
+    let query = '';
+    if (genre) {
+        query = `?category=${genre}`;
+    }
+    cardsBlock.innerText = '';
+    const urlSort = new URL(`${apiURL}${query}`)
+    const response = await fetch(urlSort, {
+        method: 'GET',
+        cache: 'no-cache',
+        mode: 'cors',
+        headers: {
+            'X-RapidAPI-Key': '1c3169c707mshb51bff34cbc9ff6p1749b9jsn648a19134256',
+            'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+        },
+    });
+    try {
+        showLoader();
+        games = await response.json();
+        createCard(games)
+    } catch (error) {
+        console.error(error);
+    } finally {
+        hideLoader()
+    }
+}
+function categoryFilter() {
+    cardsBlock.innerText = '';
+    switch (genreSelect.value) {
+        case 'genre':
+            getCategory('')
+            break;
+
+        case 'shooter':
+            getCategory('shooter');
+            break;
+
+        case 'pvp':
+            getCategory('pvp');
+            break;
+
+        case 'mmorpg':
+            cardsBlock.innerText = '';
+            getCategory('mmorpg');
+            break;
+
+        case 'pve':
+            getCategory('pve');
+            break;
+
+        default:
+            getCategory('')
+    }
+}
+
+function sortFilter(sort) {
+    const games = sort.realese_date;
+    if (newSort === "asc") {
+        games.sort((a, b) => a.release_date - b.release_date);
+    } else {
+        games.sort((a, b) => b.release_date - a.release_date);
+    }
+
+    cardsBlock.innerText = '';
+    setTimeout(() => {
+        hideLoader();
+        createCard(sort)
+    }, 1000);
+}
+
+
+
 
 document.querySelector('[data-search]').addEventListener('click', () => {
     showLoader();
@@ -150,7 +241,7 @@ function checkBoxFilter(element) {
     setTimeout(() => {
         hideLoader();
         createCard(filterCards)
-    }, 500);
+    }, 1000);
 }
 
 checkBoxFilter(dateYear);
