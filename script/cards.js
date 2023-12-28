@@ -191,11 +191,11 @@ function sortFilter(element) {
     searchInput.value = '';
     function compareDates(dataOld, dataNew) {
         if (element.dataset.radio === 'new') {
-            return new Date(dataOld.release_date) - new Date(dataNew.release_date)
+            return new Date(dataNew.release_date) - new Date(dataOld.release_date)
         }
 
         if (element.dataset.radio === 'old') {
-            return new Date(dataNew.release_date) - new Date(dataOld.release_date)
+            return new Date(dataOld.release_date) - new Date(dataNew.release_date)
         }
     }
     games.sort(compareDates);
